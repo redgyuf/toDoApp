@@ -9,16 +9,18 @@ public class Data {
 
 	private static volatile Data instance;
 	private Data() {
+		User admin = new User("admin@gmail.com", "admin");
+		users.add(admin);
 	}
 	
 	private List<User> users = new ArrayList<User>();
 	
 	
 	
-	
-	
-	
-	
+	public List<User> getUsers() {
+		return users;
+	}
+
 	public static Data getInstance() {
 		if (instance == null) {
 			synchronized (Data.class) {
