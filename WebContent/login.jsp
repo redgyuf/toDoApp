@@ -9,19 +9,19 @@
   <link href="css/signin.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src=js/login.js ></script>
 </head>
 <body>
 
 	<div class="container">
-      <form class="form-signin" action = "./Login" method="post">
+	<div id="status" class="alert alert-danger" role="alert"></div>
+      <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
-        <button id="btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button id="btn" class="btn btn-lg btn-primary btn-block">Sign in</button>
       </form>
 	</div>
 
