@@ -1,6 +1,7 @@
 package tasks;
 
 public class Task {
+	private Integer id;
 	private String name;
 	private TaskStatus status;
 	
@@ -14,6 +15,10 @@ public class Task {
 		super();
 		this.name = name;
 		this.status = status;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 
 	public String getName() {
