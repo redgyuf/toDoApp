@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import data.Data;
 import logger.Logger;
@@ -27,7 +28,6 @@ public class Login extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		PrintWriter out = response.getWriter();
 		Data data = Data.getInstance();
 		Logger logger = new Logger();
@@ -41,6 +41,8 @@ public class Login extends HttpServlet {
 			if(user.getEmail().equals(inputEmail) && user.getPassword().equals(inputPassword)){
 				out.println(HttpServletResponse.SC_ACCEPTED);
 				logger.log("Login successfull");
+				HttpSession session = request.getSession(false);
+				session.setAttribute("user", user);
 				return;
 			}
 		}
