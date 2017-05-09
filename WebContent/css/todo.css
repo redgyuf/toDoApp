@@ -3,6 +3,32 @@ body {
   padding-bottom: 30px;
 }
 
+.completed{
+    opacity:0.4;
+}
+
+.nav-pills{
+	margin-bottom: 20px;
+}
+
+#inputTaskName {
+	display: inline;
+	width: 80%;
+}
+
+#addTaskButton {
+	display: inline-block;
+    margin-top: 2px;
+    height: 30px;
+    width: 10%;
+    min-width: 35px;
+}
+
+.list-group-item {
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
 .col-sm-4 {
     width: 100%;
 }

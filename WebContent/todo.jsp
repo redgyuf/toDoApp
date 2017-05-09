@@ -45,19 +45,21 @@
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
-	</nav>
-	
-	<form action="/TaskManager" method="get">
-		<button id="getList" type="button" class="btn btn-xs btn-danger" type="submit">Remove</button>
-	</form>
-	
-	
+	</nav>	
 	<div class="container theme-showcase" role="main">
 		<div class="jumbotron">
 			<h1>Your toDo list</h1>
+			<ul class="nav nav-pills" role="tablist">
+		        <li id="FilterAll" class="active" role="presentation"><a href="#" onClick="getTasks('All')">All <span class="badge"></span></a></li>
+		        <li id="FilterActive" role="presentation"><a href="#" onClick="getTasks('Active')">Active <span class="badge"></span></a></li>
+		        <li id="FilterCompleted" role="presentation"><a href="#" onClick="getTasks('Completed')">Completed <span class="badge"></span></a></li>
+     		</ul>
 			<div class="row">
 				<div class="col-sm-4">
 					<ul id="toDoList" class="list-group">
+					</ul>
+					<ul id="addToDo" class="list-group">
+						<li class="list-group-item"><input id="inputTaskName" class="form-control" placeholder="Your next thing to Do?" required><button id="addTaskButton" type="button" class="btn btn-xs btn-success">Add</button></li>
 					</ul>
 				</div>
 			</div>

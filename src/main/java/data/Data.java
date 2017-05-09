@@ -13,10 +13,8 @@ public class Data {
 
 	private Data() {
 		User admin = new User(1, "admin@gmail.com", "admin");
-		Task task = new Task(1, "Teszt", TaskStatus.ACTIVE);
-		Task task2 = new Task(2, "Kettteske", TaskStatus.ACTIVE);
-		admin.addTask(task);
-		admin.addTask(task2);
+		admin.addTask("Teszt");
+		admin.addTask("Ketteske");
 		users.add(admin);
 	}
 

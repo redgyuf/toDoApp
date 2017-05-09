@@ -34,8 +34,19 @@ public class User {
 		return toDoList;
 	}
 
-	public void addTask(Task task) {
-		toDoList.add(task);
+	public void addTask(String name) {
+		Task newTask = new Task(getBiggestID(), name);
+		toDoList.add(newTask);
+	}
+	
+	private int getBiggestID(){
+		int maxID = 0;
+		for (Task task : toDoList) {
+			if(task.getId() > maxID){
+				maxID = task.getId();
+			}
+		}
+		return maxID+1;
 	}
 
 	public void removeTask(int id) {
