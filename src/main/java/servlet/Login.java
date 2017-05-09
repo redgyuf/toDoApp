@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 		Data data = Data.getInstance();
 		Logger logger = new Logger();
 		List<User> users = data.getUsers();
-		logger.Log("Inbound POST request @ " + getClass().toString());
+		logger.log("Inbound POST request @ " + getClass().toString());
 		
 		String inputEmail = request.getParameter("inputEmail");
 		String inputPassword = request.getParameter("inputPassword");		
@@ -40,13 +40,13 @@ public class Login extends HttpServlet {
 		for (User user : users) {
 			if(user.getEmail().equals(inputEmail) && user.getPassword().equals(inputPassword)){
 				out.println(HttpServletResponse.SC_ACCEPTED);
-				logger.Log("Login successfull");
+				logger.log("Login successfull");
 				return;
 			}
 		}
 		
 		out.println(HttpServletResponse.SC_FORBIDDEN);
-		logger.Log("Login failed");		
+		logger.log("Login failed");		
 	}
 
 }

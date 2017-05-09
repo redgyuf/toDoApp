@@ -5,14 +5,16 @@ public class Task {
 	private String name;
 	private TaskStatus status;
 	
-	public Task(String name) {
+	public Task(Integer id, String name) {
 		super();
+		this.id = id;
 		this.name = name;
 		status = TaskStatus.ACTIVE;
 	}
 
-	public Task(String name, TaskStatus status) {
+	public Task(Integer id, String name, TaskStatus status) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.status = status;
 	}
