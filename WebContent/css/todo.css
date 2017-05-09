@@ -3,6 +3,19 @@ body {
   padding-bottom: 30px;
 }
 
+.col-sm-4 {
+    width: 100%;
+}
+
+.btn-success {
+    float: right;
+    margin-right: 5px;
+}
+
+.btn-danger {
+	float: right;
+}
+
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;
