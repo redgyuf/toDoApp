@@ -38,10 +38,13 @@ public class User {
 		toDoList.add(task);
 	}
 
-	public void removeTask(Task task) {
-		for (int i = 0; i < toDoList.size(); i++) {
-			if (toDoList.get(i) == task) {
-				toDoList.remove(i);
+	public void removeTask(int id) {
+		System.out.println("Task removed");
+		for (Task task : toDoList) {
+			if(task.getId() == id){
+				System.out.println("megtalaltam");
+				toDoList.remove(task);
+				return;
 			}
 		}
 	}
