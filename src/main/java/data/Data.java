@@ -3,6 +3,7 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import logger.Logger;
 import tasks.Task;
 import tasks.TaskStatus;
 import user.User;
@@ -10,6 +11,7 @@ import user.User;
 public class Data {
 
 	private static volatile Data instance;
+	Logger logger = new Logger();
 
 	private Data() {
 		User admin = new User(1, "admin@gmail.com", "admin");
@@ -25,18 +27,27 @@ public class Data {
 	}
 	
 	public void addTask(User currentUser, String taskName){
-		currentUser.addTask(taskName);
+		if(!taskName.equals("")){
+			currentUser.addTask(taskName);
+			logger.log(currentUser.getEmail() + " Added a new task: " + taskName);
+		}
+		else{
+			logger.log(currentUser.getEmail() + " Tried to add an empty task!");
+		}
+		
 	}
 		
 	public void taskDone(User currentUser, Integer taskId){		
 		for (Task task : currentUser.getToDoList()) {
 			if(task.getId() == taskId){
 				task.setStatus(TaskStatus.COMPLETED);
+				logger.log(currentUser.getEmail() + " Completed the: " + task.getName());
 			}
 		}	
 	}
 	
 	public void removeTask(User currentUser, Integer taskId){
+		logger.log(currentUser.getEmail() + " Removed task with ID: " + taskId);
 		currentUser.removeTask(taskId);
 	}
 	
