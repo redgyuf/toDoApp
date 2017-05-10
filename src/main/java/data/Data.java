@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import logger.Logger;
 import sql.SQLConnector;
@@ -69,9 +70,32 @@ public class Data {
 		}
 	}
 	
+	public List<Task> getTaskForUserFromDB(int userID){
+		User user = searchUserbyID(userID);
+		user.getToDoList().clear();
+		List<Task> fromDB = new CopyOnWriteArrayList();
+		
+		ResultSet rs = sqlc.getData("Select * from todo.tasks where userID="+userID);
+		try {
+			while (rs.next()) {
+				int taskID = rs.getInt("taskID");
+				String name = rs.getString("Name");
+				String Status = rs.getString("Status");
+				user.addTask(new Task(taskID, name, TaskStatus.valueOf(Status)));
+				fromDB.add(new Task(taskID, name, TaskStatus.valueOf(Status)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return fromDB;
+		
+	}
+	
 	
 	public void addTask(User currentUser, String taskName){
 		if(!taskName.equals("")){
+			sqlc.sendQuery("insert into todo.tasks (Name,Status,userID) values ('"+ taskName + "','ACTIVE'," + currentUser.getId() + ")");
 			currentUser.addTask(taskName);
 			logger.log(currentUser.getEmail() + " Added a new task: " + taskName);
 		}
@@ -84,6 +108,10 @@ public class Data {
 	public void taskDone(User currentUser, Integer taskId){		
 		for (Task task : currentUser.getToDoList()) {
 			if(task.getId() == taskId){
+				currentUser.getToDoList().clear();
+				sqlc.sendQuery("update todo.tasks set Status = 'COMPLETED' where taskID =" + taskId);
+				getTaskForUserFromDB(currentUser.getId());
+				
 				task.setStatus(TaskStatus.COMPLETED);
 				logger.log(currentUser.getEmail() + " Completed the: " + task.getName());
 			}
@@ -96,7 +124,7 @@ public class Data {
 	}
 	
 	public List<Task> filterTasks(User currentUser, String filter){
-		List<Task> tasks = currentUser.getToDoList();
+		List<Task> tasks = getTaskForUserFromDB(currentUser.getId());
 		List<Task> tasksToSend = new ArrayList<Task>();
 		
 		for (Task task : tasks) {

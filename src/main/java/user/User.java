@@ -2,6 +2,7 @@ package user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import tasks.Task;
 
@@ -9,7 +10,7 @@ public class User {
 	private Integer id;
 	private String email;
 	private String password;
-	private List<Task> toDoList = new ArrayList<Task>();
+	private List<Task> toDoList = new CopyOnWriteArrayList();
 
 	public User(Integer id, String email, String password) {
 		super();
