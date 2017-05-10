@@ -50,10 +50,8 @@ public class User {
 	}
 
 	public void removeTask(int id) {
-		System.out.println("Task removed");
 		for (Task task : toDoList) {
 			if(task.getId() == id){
-				System.out.println("megtalaltam");
 				toDoList.remove(task);
 				return;
 			}

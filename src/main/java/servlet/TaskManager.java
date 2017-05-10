@@ -29,13 +29,14 @@ public class TaskManager extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.log("Get request @ TaskManager");
+		
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession(false);
 		User currentUser = (User) session.getAttribute("user");		
 		String filter = request.getParameter("filter");
-		logger.log(filter + " Tasks requested");
+		logger.log("Get request @ TaskManager by " + currentUser.getEmail());
+		logger.log(filter + " Tasks requested by " + currentUser.getEmail());
 
 		Gson gson = new Gson();
 		String jsonString = "";
@@ -54,23 +55,20 @@ public class TaskManager extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Logger logger = new Logger();
-		logger.log("Post request @ TaskManager");
-		
 		HttpSession session = request.getSession(false);
 		User currentUser = (User) session.getAttribute("user");
 		String taskName = request.getParameter("taskName");
+		logger.log("Post request @ TaskManager " + currentUser.getEmail());
 		
 		data.addTask(currentUser, taskName);		
 	}	
 	
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.log("Put request @ TaskManager");
-		
 		HttpSession session = request.getSession(false);
 		User currentUser = (User) session.getAttribute("user");
 		Integer taskDoneID = Integer.valueOf(request.getParameter("taskDone"));
+		logger.log("Put request @ TaskManager " + currentUser.getEmail());
 		
 		data.taskDone(currentUser, taskDoneID);
 		
@@ -80,11 +78,10 @@ public class TaskManager extends HttpServlet {
 
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.log("Delete request @ TaskManager");
-		
 		HttpSession session = request.getSession(false);
 		User currentUser = (User) session.getAttribute("user");
 		Integer removedTaskID = Integer.valueOf(request.getParameter("removeTask"));
+		logger.log("Delete request @ TaskManager " + currentUser.getEmail());
 		
 		data.removeTask(currentUser, removedTaskID);
 		
