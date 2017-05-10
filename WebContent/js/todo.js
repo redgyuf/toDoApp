@@ -7,11 +7,11 @@ function getTasks(filter){
 	
 	$("li[role='presentation']").removeClass("active");
 	$("#Filter"+filter).addClass("active");
+	$("#toDoList").html("");
 	
 	$.get("./TaskManager", {"filter": filter}, function (response) {
 		console.log(response);
 		
-		$("#toDoList").html("");
 		for(task of response){
 			if(task.status == "COMPLETED"){
 				$("#toDoList").append('<li class="list-group-item completed" >' + task.name + '<button id=' + task.id + ' type="button" class="btn btn-xs btn-danger" onClick="removeTask('+ task.id + ')">Remove</button></li>');
