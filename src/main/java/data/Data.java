@@ -1,9 +1,12 @@
 package data;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import logger.Logger;
+import sql.SQLConnector;
 import tasks.Task;
 import tasks.TaskStatus;
 import user.User;
@@ -12,12 +15,9 @@ public class Data {
 
 	private static volatile Data instance;
 	Logger logger = new Logger();
+	SQLConnector sqlc = new SQLConnector();
 
 	private Data() {
-		User admin = new User(1, "admin@gmail.com", "admin");
-		admin.addTask("Teszt");
-		admin.addTask("Ketteske");
-		users.add(admin);
 	}
 
 	private List<User> users = new ArrayList<User>();
@@ -25,6 +25,50 @@ public class Data {
 	public List<User> getUsers() {
 		return users;
 	}
+	
+	private User searchUserbyID(int id){
+		for (User user : users) {
+			if(user.getId()==id)
+				return user;
+		}
+		logger.log("User not found with id: " + id);
+		return null;
+	}
+	
+	public List<User> getUsersFromDB(){
+		String sqlGetUserCommand = "SELECT * FROM todo.users;";
+		ResultSet rs = sqlc.getData(sqlGetUserCommand);
+		
+		try {
+			while (rs.next()) {
+				int id = rs.getInt("userID");
+				String email = rs.getString("Email");
+				String password = rs.getString("Password");
+				users.add(new User(id, email, password));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return users;		
+	}
+	
+	public void addTasksToUsersFromDB(){
+		String sqlGetUserCommand = "SELECT * FROM todo.tasks;";
+		ResultSet rs = sqlc.getData(sqlGetUserCommand);
+		
+		try {
+			while (rs.next()) {
+				int taskID = rs.getInt("taskID");
+				String name = rs.getString("Name");
+				String Status = rs.getString("Status");
+				int userID = rs.getInt("userID");
+				searchUserbyID(userID).addTask(new Task(taskID, name, TaskStatus.valueOf(Status)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void addTask(User currentUser, String taskName){
 		if(!taskName.equals("")){

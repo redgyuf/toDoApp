@@ -30,8 +30,16 @@ public class User {
 		return password;
 	}
 
-	public List<Task> getToDoList() {
+	public void setToDoList(List<Task> toDoList) {
+		this.toDoList = toDoList;
+	}
+
+	public List<Task> getToDoList() {		
 		return toDoList;
+	}
+	
+	public void addTask(Task task){
+		toDoList.add(task);
 	}
 
 	public void addTask(String name) {
