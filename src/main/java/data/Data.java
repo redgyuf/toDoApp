@@ -23,6 +23,47 @@ public class Data {
 	public List<User> getUsers() {
 		return users;
 	}
+	
+	public void addTask(User currentUser, String taskName){
+		currentUser.addTask(taskName);
+	}
+		
+	public void taskDone(User currentUser, Integer taskId){		
+		for (Task task : currentUser.getToDoList()) {
+			if(task.getId() == taskId){
+				task.setStatus(TaskStatus.COMPLETED);
+			}
+		}	
+	}
+	
+	public void removeTask(User currentUser, Integer taskId){
+		currentUser.removeTask(taskId);
+	}
+	
+	public List<Task> filterTasks(User currentUser, String filter){
+		List<Task> tasks = currentUser.getToDoList();
+		List<Task> tasksToSend = new ArrayList<Task>();
+		
+		for (Task task : tasks) {
+			if(filter.equals("All") || filter == null){
+				tasksToSend.add(task);
+			}else{
+				if(filter.equals("Active")){
+					if(task.getStatus().equals(TaskStatus.ACTIVE)){
+						tasksToSend.add(task);
+					}
+				}else{
+					if(filter.equals("Completed")){
+						if(task.getStatus() == TaskStatus.COMPLETED){
+							tasksToSend.add(task);
+						}
+					}
+				}
+			}
+		}
+		
+		return tasksToSend;
+	}
 
 	public static Data getInstance() {
 		if (instance == null) {
