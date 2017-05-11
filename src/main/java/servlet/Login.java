@@ -31,7 +31,8 @@ public class Login extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Data data = Data.getInstance();
 		Logger logger = new Logger();
-		List<User> users = data.getUsers();
+		List<User> users = data.getUsersFromDB();
+		
 		logger.log("Inbound POST request @ Login");
 		
 		String inputEmail = request.getParameter("inputEmail");

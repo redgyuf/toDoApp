@@ -33,7 +33,7 @@ public class PermissionFilter implements Filter {
 
 		HttpSession session = req.getSession(false);
 		Data data = Data.getInstance();
-		List<User> users = data.getUsers();
+		List<User> users = data.getUsersFromDB();
 		
 		User currentUser = null;
 		if(session != null){
