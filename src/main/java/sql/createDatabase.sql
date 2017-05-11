@@ -20,3 +20,7 @@ CREATE TABLE `Tasks` (
 
 insert into toDo.Users (Email, Password) values ("admin@gmail.com", "admin");
 insert into toDo.Tasks (Name, Status, userID) values ("Add a toDo to your list!","ACTIVE",1);
+
+insert into toDo.Users (Email, Password) values ("user@gmail.com", "user");
+insert into toDo.Tasks (Name, Status, userID) values ("Add a toDo to your list!","ACTIVE",2);
+insert into toDo.Tasks (Name, Status, userID) values ("See this isn't the same shit!","ACTIVE",2);
