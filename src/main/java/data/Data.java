@@ -119,6 +119,8 @@ public class Data {
 	}
 	
 	public void removeTask(User currentUser, Integer taskId){
+		sqlc.sendQuery("delete from todo.tasks where taskID =" + taskId);
+		
 		logger.log(currentUser.getEmail() + " Removed task with ID: " + taskId);
 		currentUser.removeTask(taskId);
 	}
