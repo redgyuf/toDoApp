@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
@@ -16,7 +15,7 @@ public class SQLConnector {
 
 	public void runStartingScript() throws FileNotFoundException {
 		Connection conn = cPool.getConnection();
-		ScriptUtils.executeSqlScript(conn, new EncodedResource(new FileSystemResource("C:/Users/Gál Dániel/Desktop/CodeCool/web_tw_project/toDoApp/src/main/java/sql/createDatabase.sql")));
+		ScriptUtils.executeSqlScript(conn, new EncodedResource(new ClassPathResource("sql/createDatabase.sql")));
 	}
 
 	public void sendQuery(String query) {
