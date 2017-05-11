@@ -1,18 +1,11 @@
 package user;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import tasks.Task;
-
 public class User {
 	private Integer id;
 	private String email;
 	private String password;
-	private List<Task> toDoList = new CopyOnWriteArrayList();
 
-	public User(Integer id, String email, String password) {
+	public User(Integer id, String email, String password){
 		super();
 		this.id = id;
 		this.email = email;
@@ -31,40 +24,12 @@ public class User {
 		return password;
 	}
 
-	public void setToDoList(List<Task> toDoList) {
-		this.toDoList = toDoList;
-	}
-
-	public List<Task> getToDoList() {		
-		return toDoList;
-	}
-	
-	public void addTask(Task task){
-		toDoList.add(task);
-	}
-
-	public void addTask(String name) {
-		Task newTask = new Task(getBiggestID(), name);
-		toDoList.add(newTask);
-	}
-	
-	private int getBiggestID(){
-		int maxID = 0;
-		for (Task task : toDoList) {
-			if(task.getId() > maxID){
-				maxID = task.getId();
-			}
-		}
-		return maxID+1;
-	}
-
-	public void removeTask(int id) {
-		for (Task task : toDoList) {
-			if(task.getId() == id){
-				toDoList.remove(task);
-				return;
-			}
-		}
-	}
-
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		
+		User otherUser = (User) obj;
+		return this.id.equals(otherUser.id);
+	}	
 }
