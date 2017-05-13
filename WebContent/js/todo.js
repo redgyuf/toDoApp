@@ -27,10 +27,11 @@ function taskDone(id){
 	$.ajax({
 	    url: './TaskManager?taskDone='+ id,
 	    type: 'PUT',
-	    success: function(result) {	        
+	    success: function(result) {
+	    	getTasks("All");
 	    }
 	});
-	getTasks("All");
+	
 }
 
 function addTask(){
@@ -48,8 +49,8 @@ function removeTask(id){
 	$.ajax({
 	    url: './TaskManager?removeTask='+ id,
 	    type: 'DELETE',
-	    success: function(result) {	        
+	    success: function(result) {
+	    	getTasks("All");
 	    }
 	});
-	getTasks("All");
 }
